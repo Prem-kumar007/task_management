@@ -54,6 +54,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script>
+    if (window.history && window.history.pushState) {
+        $(window).on('popstate', function() {
+            window.history.pushState('forward', null, ''); // This line prevents back button from reloading the page
+        });
+    }
+</script>
 </body>
 </html>

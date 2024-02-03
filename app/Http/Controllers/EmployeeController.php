@@ -57,6 +57,10 @@ class EmployeeController extends Controller
     {
         $empData = ['first_name' => $request->fname, 'last_name' => $request->lname, 'email' => $request->email, 'phone' => $request->phone, 'post' => $request->post];
 
+        // $empData['password'] = Hash::make($empData['password']);
+        // $empData['status'] =0;
+        // $data = $empData->except(['_token','cpassword']);
+
         DB::table('employee')->insert($empData);
         return response()->json([
             'success' => true,

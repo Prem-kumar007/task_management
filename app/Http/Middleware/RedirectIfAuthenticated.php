@@ -21,9 +21,17 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
+        if (auth()->check()) {
+            // Set Cache-Control header to prevent caching
+            return response()
+                ->view('authentication.login')
+                ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+        }
+
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                return redirect()->route('dashboard');
+                // return redirect(RouteServiceProvider::HOME);
             }
         }
 

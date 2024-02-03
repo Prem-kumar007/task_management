@@ -16,7 +16,18 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-// Route::middleware(['auth'])->group(function () {
+
+Route::group(['middleware'=>'redirect.authenticated'],function(){
+
+    Route::get('login','AuthController@login')->name('login');
+    Route::get('register','AuthController@register')->name('register');
+});
+
+ Route::post('login_post','AuthController@login_post')->name('login_post');
+ Route::post('register_user','AuthController@register_user')->name('register_user');
+
+
+ Route::middleware(['auth'])->group(function () {
 Route::get('/', 'HomeController@dashboard');
 Route::get('/dashboard','HomeController@dashboard')->name('dashboard');
 Route::get('/account_statement','HomeController@account_statement')->name('account_statement');
@@ -40,11 +51,12 @@ Route::get('form_validation','HomeController@form_validate')->name('form_validat
 // Task Management
     
     Route::get('/task', 'TaskController@index')->name('task');
-    Route::post('/store', 'TaskController@store')->name('store');
-    Route::get('/fetchall', 'TaskController@fetchAll')->name('fetchAll');
-    Route::post('/delete', 'TaskController@delete')->name('delete');
-    Route::post('/edit', 'TaskController@edit')->name('edit');
-    Route::post('/update', 'TaskController@update')->name('update');
+    Route::post('/task_store', 'TaskController@store')->name('task_store');
+    Route::get('/task_fetchall', 'TaskController@fetchAll')->name('task_fetchall');
+    Route::post('/task_delete', 'TaskController@delete')->name('task_delete');
+    Route::post('/task_edit', 'TaskController@edit')->name('task_edit');
+    Route::post('/task_update', 'TaskController@update')->name('task_update');
 
+    Route::get('logout','AuthController@logout')->name('logout');
 
-//}
+});
